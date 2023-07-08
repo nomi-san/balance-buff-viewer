@@ -9,9 +9,9 @@ Game mode balance buff viewer for Pengu Loader.
 - [x] Friendly UI with tooltips
 - [x] Multilingual support
 - [x] ARAM balance
+- [x] URF/ARURF
 
 ### 📝 TODO
-- [ ] URF/ARURF
 - [ ] One for All
 - [ ] Nexus Blitz
 - [ ] Ultra SpellBook

@@ -12,7 +12,7 @@ let teamArray_ = Array<BalanceTooltipData>();
 let benchArray_ = Array<BalanceTooltipData>();
 
 function isValidGameMode() {
-  return gameMode_ === 'aram';
+  return gameMode_ === 'aram' || gameMode_ === 'urf';
 }
 
 function update(session: ChampSelectSession) {
@@ -57,6 +57,8 @@ function update(session: ChampSelectSession) {
 }
 
 async function mount() {
+  console.log('MOUNT');
+
   const { map }: GameFlowSession = await fetch('/lol-gameflow/v1/session').then(r => r.json());
   const { benchEnabled }: ChampSelectSession = await fetch('/lol-champ-select/v1/session').then(r => r.json());
 
@@ -72,11 +74,11 @@ async function mount() {
   } while (!party);
 
   party.querySelectorAll('.summoner-container-wrapper').forEach((el, index) => {
+    console.log('MOUNTING', index);
     el.addEventListener('mouseout', () => tooltip_.hide());
     el.addEventListener('mouseover', () => {
       const data = teamArray_[index];
-      if (!data) return;
-      tooltip_.show(el, 'right', data.title, data.description);
+      if (data) tooltip_.show(el, 'right', data.title, data.description);
     });
   });
 
@@ -85,14 +87,18 @@ async function mount() {
       el.addEventListener('mouseout', () => tooltip_.hide());
       el.addEventListener('mouseover', () => {
         const data = benchArray_[index];
-        if (!data) return;
-        tooltip_.show(el, 'bottom', data.title, data.description);
+        if (data) tooltip_.show(el, 'bottom', data.title, data.description);
       });
     });
   }
+
+  console.log('MOUNTED');
 }
 
 function unmount() {
+  console.log('UNMOUNT');
+
+  gameMode_ = '';
   tooltip_?.hide();
   tooltip_ = null!;
   teamArray_ = [];
@@ -113,6 +119,7 @@ async function load() {
   const EP_GAMEFLOW = 'OnJsonApiEvent/lol-gameflow/v1/gameflow-phase'.replace(/\//g, '_');
 
   ws.onopen = () => {
+    console.log('WS OPENED');
     ws.send(JSON.stringify([5, EP_SESSION]));
     ws.send(JSON.stringify([5, EP_GAMEFLOW]));
   };
