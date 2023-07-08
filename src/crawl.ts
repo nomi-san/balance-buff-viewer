@@ -1,4 +1,5 @@
 import luaparse from 'luaparse';
+import { existsSync } from 'node:fs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
@@ -107,8 +108,12 @@ async function main() {
   const data = buildBalanceBuffData(script);
 
   const json = JSON.stringify(data);
-  const outpath = path.join(process.cwd(), 'dist/balance.json');
+  const outdir = path.join(process.cwd(), 'dist');
+  const outpath = path.join(outdir, 'balance.json');
 
+  if (!existsSync(outdir)) {
+    await fs.mkdir(outdir);
+  }
   await fs.writeFile(outpath, json);
 }
 
