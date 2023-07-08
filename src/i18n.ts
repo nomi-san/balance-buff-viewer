@@ -8,6 +8,7 @@ let current: Trans;
 export function loadTranslation() {
   let lang = document.body.dataset['lang'] as string;
   if (lang === 'vn') lang = 'vi';
+  if (lang === 'zh') lang = 'zh-CN';
 
   // @ts-ignore
   current = translations[lang] || translations[fallback];
