@@ -2,6 +2,9 @@
 
 Game mode balance buff viewer for Pengu Loader.
 
+<img width="500" src="https://github.com/nomi-san/balance-buff-viewer/assets/38210249/7b249bea-ff5c-477e-92cf-8489ac3fe576" />
+<img width="500" src="https://github.com/nomi-san/balance-buff-viewer/assets/38210249/b0659d36-351c-46da-a287-59c40581b7ab" />
+
 ### ⚡ FEATURES
 - [x] Friendly UI with tooltips
 - [x] Multilingual support
