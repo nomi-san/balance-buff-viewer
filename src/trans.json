@@ -1,0 +1,33 @@
+{
+  "fallback": "en",
+  "translations": {
+    "en": {
+      "title": "BALANCE STATS",
+      "no_stats": "No buffs/nerfs yet.",
+      "dmg_dealt": "Damage dealt",
+      "dmg_taken": "Damage taken",
+      "healing": "Healing",
+      "shielding": "Shielding",
+      "ability_haste": "Initial ability haste",
+      "mana_regen": "Mana regeneration",
+      "energy_regen": "Energy regeneration",
+      "attack_speed": "Attack speed",
+      "movement_speed": "Movement speed",
+      "tenacity": "Tenacity & slow resistance"
+    },
+    "vi": {
+      "title": "CHỈ SỐ CÂN BẰNG",
+      "no_stats":"Không có tăng/giảm nào.",
+      "dmg_dealt": "Sát thương gây ra",
+      "dmg_taken": "Sát thương nhận vào",
+      "healing": "Hồi máu",
+      "shielding": "Lá chắn",
+      "ability_haste": "Điểm hồi kỹ năng khởi đầu",
+      "mana_regen": "Hồi năng lượng",
+      "energy_regen": "Hồi nội năng",
+      "attack_speed": "Tốc độ đánh",
+      "movement_speed": "Tốc độ di chuyển",
+      "tenacity": "Kháng hiệu ứng & làm chậm"
+    }
+  }
+}

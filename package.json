@@ -1,0 +1,34 @@
+{
+  "name": "@pengu.lol/banalce-buff-viewer",
+  "version": "13.13.1",
+  "description": "ARAM/URF balance buff viewer plugin for Pengu Loader.",
+  "author": "nomi-san",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nomi-san/balance-buff-viewer"
+  },
+  "license": "MIT",
+  "keywords": [
+    "pengu-loader",
+    "league-client",
+    "league-of-legends",
+    "plugins"
+  ],
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "crawl": "sucrase-node src/crawl.ts",
+    "build": "tsc --noEmit && vite build"
+  },
+  "devDependencies": {
+    "@types/luaparse": "^0.2.9",
+    "@types/node": "^18.16.19",
+    "@types/react": "^18.2.14",
+    "luaparse": "^0.3.1",
+    "sucrase": "^3.32.0",
+    "typescript": "^5.1.6",
+    "vite": "^4.4.2"
+  }
+}
