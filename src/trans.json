@@ -13,7 +13,7 @@
       "energy_regen": "Energy regeneration",
       "attack_speed": "Attack speed",
       "movement_speed": "Movement speed",
-      "tenacity": "Tenacity & slow resistance"
+      "tenacity": "Tenacity"
     },
     "vi": {
       "title": "CHỈ SỐ CÂN BẰNG",
@@ -27,7 +27,7 @@
       "energy_regen": "Hồi nội năng",
       "attack_speed": "Tốc độ đánh",
       "movement_speed": "Tốc độ di chuyển",
-      "tenacity": "Kháng hiệu ứng & làm chậm"
+      "tenacity": "Kháng hiệu ứng"
     },
     "zh-CN":{
       "title": "平衡数据",
