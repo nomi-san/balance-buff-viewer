@@ -3,6 +3,8 @@ type GameFlowPhase = 'Lobby' | 'ChampSelect' | 'None';
 interface GameFlowSession {
   map: {
     id: number
+    gameMode: string
+    gameModeName: string
     gameModeShortName: string
   }
 }

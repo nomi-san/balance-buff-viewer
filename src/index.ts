@@ -62,7 +62,7 @@ async function mount() {
   const { map }: GameFlowSession = await fetch('/lol-gameflow/v1/session').then(r => r.json());
   const { benchEnabled }: ChampSelectSession = await fetch('/lol-champ-select/v1/session').then(r => r.json());
 
-  gameMode_ = map.gameModeShortName.toLowerCase();
+  gameMode_ = map.gameMode.toLowerCase();
   if (!isValidGameMode()) return;
 
   tooltip_ = new Tooltip(playerManager());
