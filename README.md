@@ -1,6 +1,6 @@
 # balance-buff-viewer
 
-Game mode balance buff viewer for Pengu Loader.
+Game modes' balance buff viewer for Pengu Loader.
 
 <img width="500" src="https://github.com/nomi-san/balance-buff-viewer/assets/38210249/7b249bea-ff5c-477e-92cf-8489ac3fe576" />
 <img width="500" src="https://github.com/nomi-san/balance-buff-viewer/assets/38210249/b0659d36-351c-46da-a287-59c40581b7ab" />
@@ -9,7 +9,7 @@ Game mode balance buff viewer for Pengu Loader.
 - [x] Friendly UI with tooltips
 - [x] Multilingual support
 - [x] ARAM balance
-- [x] URF/ARURF
+- [x] ARURF/URF balance
 
 ### 📝 TODO
 - [ ] One for All
@@ -31,14 +31,21 @@ pnpm crawl
 pnpm build
 ```
 
-### Import from CDN
+### npm package & remote plugin
 
-npm package: https://www.npmjs.com/package/balance-buff-viewer-plugin
+This plugins is also a npm package ([balance-buff-viewer-plugin](https://www.npmjs.com/package/balance-buff-viewer-plugin)).
+The plugin entry will import it's source via Skypack CDN with @latest version, it will be automatically updated when we publish a newer version.
 
 ```js
 import 'https://cdn.skypack.dev/balance-buff-viewer-plugin@latest?min';
 ```
 
+In case of regional restrictions, you can use other ESM CDNs:
+- esm.sh
+- esm.run
+- unpkg
+
 ## 🍻 Credits
 - Pengu Loader: https://pengu.lol
 - LoL Fandom Module:ChampionData: https://leagueoflegends.fandom.com/wiki/Module:ChampionData/data
+- Original idea & zh-CN translation: [@BakaFT](https://github.com/BakaFT)
