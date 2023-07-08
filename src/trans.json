@@ -28,6 +28,20 @@
       "attack_speed": "Tốc độ đánh",
       "movement_speed": "Tốc độ di chuyển",
       "tenacity": "Kháng hiệu ứng & làm chậm"
+    },
+    "zh-CN":{
+      "title": "平衡数据",
+      "no_stats": "暂无增益/减益",
+      "dmg_dealt": "造成伤害",
+      "dmg_taken": "承受伤害",
+      "healing": "治疗",
+      "shielding": "护盾",
+      "ability_haste": "初始技能急速",
+      "mana_regen": "法力回复",
+      "energy_regen": "能量回复",
+      "attack_speed": "攻击速度",
+      "movement_speed": "移动速度",
+      "tenacity": "韧性"
     }
   }
 }
