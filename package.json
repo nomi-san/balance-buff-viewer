@@ -1,5 +1,5 @@
 {
-  "name": "@pengu.lol/banalce-buff-viewer",
+  "name": "balance-buff-viewer-plugin",
   "version": "13.13.1",
   "description": "ARAM/URF balance buff viewer plugin for Pengu Loader.",
   "author": "nomi-san",
