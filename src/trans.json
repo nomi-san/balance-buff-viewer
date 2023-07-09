@@ -1,7 +1,12 @@
 {
-  "fallback": "en",
-  "translations": {
-    "en": {
+  "fallback": "en-US",
+  "translations": [
+    {
+      "_locales": [
+        "en-US",
+        "en-GB",
+        "en-AU"
+      ],
       "title": "BALANCE STATS",
       "no_stats": "No buffs/nerfs yet.",
       "dmg_dealt": "Damage dealt",
@@ -15,9 +20,13 @@
       "movement_speed": "Movement speed",
       "tenacity": "Tenacity"
     },
-    "vi": {
+    {
+      "_locales": [
+        "vi-VN",
+        "vn-VN"
+      ],
       "title": "CHỈ SỐ CÂN BẰNG",
-      "no_stats":"Không có tăng/giảm nào.",
+      "no_stats": "Không có tăng/giảm nào.",
       "dmg_dealt": "Sát thương gây ra",
       "dmg_taken": "Sát thương nhận vào",
       "healing": "Hồi máu",
@@ -29,7 +38,10 @@
       "movement_speed": "Tốc độ di chuyển",
       "tenacity": "Kháng hiệu ứng"
     },
-    "zh-CN":{
+    {
+      "_locales": [
+        "zh-CN"
+      ],
       "title": "平衡数据",
       "no_stats": "暂无增益/减益",
       "dmg_dealt": "造成伤害",
@@ -43,5 +55,5 @@
       "movement_speed": "移动速度",
       "tenacity": "韧性"
     }
-  }
+  ]
 }

@@ -1,21 +1,26 @@
 import { fallback, translations } from './trans.json';
 
-type Trans = typeof translations['en'];
-type TransId = keyof Trans;
+type Translation = Record<string, string>;
+type TranslationKey = keyof typeof translations[0];
 
-let current: Trans;
+let _T: Translation;
 
-export function loadTranslation() {
-  let lang = document.body.dataset['lang'] as string;
-  if (lang === 'vn') lang = 'vi';
-  if (lang === 'zh') lang = 'zh-CN';
-
-  // @ts-ignore
-  current = translations[lang] || translations[fallback];
+function findTranslation(locale: string) {
+  locale = locale.toLocaleLowerCase();
+  for (const trans of translations) {
+    if (trans._locales.some(l => l.toLowerCase() === locale)) {
+      return trans as any;
+    }
+  }
 }
 
-export function _t(id: TransId, next?: any) {
-  const text: string = current[id] || `{{${id}}}`;
+export function loadTranslation() {
+  const locale = document.body.dataset['locale'] as string;
+  _T = findTranslation(locale) || findTranslation(fallback);
+}
+
+export function _t(key: TranslationKey, next?: any) {
+  const text: string = _T[key] || `{{${key}}}`;
   if (next) return `${text} ${next}`;
   return text;
 }
