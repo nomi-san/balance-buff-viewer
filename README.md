@@ -6,24 +6,20 @@ Game modes' balance buffs/nerfs viewer for [Pengu Loader](https://github.com/Pen
 <br>
 
 ### ⚡ Features
-- [x] Friendly UI with tooltips
-- [x] Multilingual support
-- [x] ARAM balance
-- [x] ARURF/URF balance
+- [x] Friendly UI with tooltips and icons
+- [x] Multilingual support (en/zh/vi)
+- [x] ARAM balance stats
+- [x] ARURF/URF balance stats
 
 ### 📝 Todo
 - [ ] One for All
 - [ ] Nexus Blitz
 - [ ] Ultra SpellBook
 
-### 📷 Screenshots
-
-<img width="500" src="https://github.com/nomi-san/balance-buff-viewer/assets/38210249/7b249bea-ff5c-477e-92cf-8489ac3fe576" />
 <br>
 
-<img width="500" src="https://github.com/nomi-san/balance-buff-viewer/assets/38210249/b0659d36-351c-46da-a287-59c40581b7ab" />
-<br>
-
+![](https://github.com/nomi-san/balance-buff-viewer/assets/38210249/6120e251-d319-463e-9e83-1ec318ca10b3)
+  
 <br>
 
 ## 🔨 Installation
@@ -59,5 +55,6 @@ In case of regional restrictions, you can use other ESM CDNs:
 
 ## 🍻 Credits
 - Pengu Loader: https://pengu.lol
-- LoL Fandom Module:ChampionData: https://leagueoflegends.fandom.com/wiki/Module:ChampionData/data
+- Icons: https://leagueoflegends.fandom.com/wiki
+- Balance data: https://leagueoflegends.fandom.com/wiki/Module:ChampionData/data
 - Original idea & zh-CN translation: [@BakaFT](https://github.com/BakaFT)
