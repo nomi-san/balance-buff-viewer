@@ -1,3 +1,9 @@
+declare module 'virtual:icons' {
+  const icons: Record<string, Array<number>>;
+  export const mime: string;
+  export default icons;
+}
+
 type GameFlowPhase = 'Lobby' | 'ChampSelect' | 'None';
 
 interface GameFlowSession {

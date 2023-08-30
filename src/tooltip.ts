@@ -41,7 +41,7 @@ export class Tooltip {
 
   show(parent: Element, position: 'right' | 'bottom', caption: string, content: string) {
     this.#caption.textContent = caption;
-    this.#content.textContent = content;
+    this.#content.innerHTML = content;
     this.#manager.appendChild(this.#root);
     this.#tooltip.setAttribute('data-tooltip-position', position);
 

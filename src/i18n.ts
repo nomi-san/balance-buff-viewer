@@ -19,8 +19,6 @@ export function loadTranslation() {
   _T = findTranslation(locale) || findTranslation(fallback);
 }
 
-export function _t(key: TranslationKey, next?: any) {
-  const text: string = _T[key] || `{{${key}}}`;
-  if (next) return `${text} ${next}`;
-  return text;
+export function _t(key: TranslationKey) {
+  return _T[key] || `{{${key}}}`;
 }

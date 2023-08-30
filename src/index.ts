@@ -1,6 +1,6 @@
 import { loadTranslation, _t } from './i18n';
 import { Tooltip } from './tooltip';
-import { getStatsText } from './data';
+import { getStatsHtml } from './data';
 import BALANCE_DATA from '../dist/balance.json';
 
 const delay = (t: number) => new Promise(r => setTimeout(r, t));
@@ -28,7 +28,7 @@ function update(session: ChampSelectSession) {
           champId: championId,
           champName: BALANCE_DATA[championId].name,
           title: _t('title'),
-          description: getStatsText(stats),
+          description: getStatsHtml(stats),
         });
         continue;
       }
@@ -46,7 +46,7 @@ function update(session: ChampSelectSession) {
             champId: championId,
             champName: BALANCE_DATA[championId].name,
             title: _t('title'),
-            description: getStatsText(stats),
+            description: getStatsHtml(stats),
           });
           continue;
         }
