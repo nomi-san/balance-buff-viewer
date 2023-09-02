@@ -2,6 +2,7 @@ import luaparse from 'luaparse';
 import { existsSync } from 'node:fs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import pkg from '../package.json';
 
 const GAME_MODES = ['aram', 'nb', 'ofa', 'urf', 'usb'];
 const FANDOM_DATA_URL = 'https://leagueoflegends.fandom.com/wiki/Module:ChampionData/data';
@@ -106,6 +107,9 @@ function buildBalanceBuffData(script: string) {
 async function main() {
   const script = await getFandomDataScript();
   const data = buildBalanceBuffData(script);
+
+  const version = pkg.version.split('.').slice(0, 2).join('.');
+  data['version'] = version;
 
   const json = JSON.stringify(data);
   const outdir = path.join(process.cwd(), 'dist');

@@ -3,6 +3,9 @@ import { Tooltip } from './tooltip';
 import { getStatsHtml } from './data';
 import BALANCE_DATA from '../dist/balance.json';
 
+// @ts-ignore
+const version = BALANCE_DATA['version'];
+
 const delay = (t: number) => new Promise(r => setTimeout(r, t));
 const playerManager = () => document.getElementById('lol-uikit-layer-manager-wrapper')!;
 
@@ -27,7 +30,7 @@ function update(session: ChampSelectSession) {
         teamArray_.push({
           champId: championId,
           champName: BALANCE_DATA[championId].name,
-          title: _t('title'),
+          title: _t('title') + ` v${version}`,
           description: getStatsHtml(stats),
         });
         continue;
@@ -45,7 +48,7 @@ function update(session: ChampSelectSession) {
           benchArray_.push({
             champId: championId,
             champName: BALANCE_DATA[championId].name,
-            title: _t('title'),
+            title: _t('title') + ` v${version}`,
             description: getStatsHtml(stats),
           });
           continue;
