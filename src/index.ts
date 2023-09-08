@@ -140,6 +140,8 @@ async function load() {
       }
     }
   };
+
+  window.addEventListener('blur', () => tooltip_?.hide());
 }
 
 window.addEventListener('load', load);
