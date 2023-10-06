@@ -54,6 +54,23 @@
       "attack_speed": "攻击速度",
       "movement_speed": "移动速度",
       "tenacity": "韧性"
-    }
+    },
+    {
+      "_locales": [
+        "ko-KR"
+      ],
+      "title": "밸런스 효과",
+      "no_stats": "버프/너프 없음",
+      "dmg_dealt": "입힌 피해량",
+      "dmg_taken": "받은 피해량",
+      "healing": "체력 재생",
+      "shielding": "보호막 흡수량",
+      "ability_haste": "스킬 가속",
+      "mana_regen": "마나 재생",
+      "energy_regen": "기력 재생",
+      "attack_speed": "공격 속도",
+      "movement_speed": "이동 속도",
+      "tenacity": "강인함"
+    }    
   ]
 }
