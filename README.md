@@ -10,7 +10,7 @@ Game modes' balance buffs/nerfs viewer for [Pengu Loader](https://github.com/Pen
 
 - [x] Friendly UI with tooltips
 - [x] Stat icons and highlighting
-- [x] Multilingual support (en/vi/zh)
+- [x] Multilingual support (en/kr/vi/zh)
 - [x] ARAM balance stats
 - [x] ARURF/URF balance stats
 
@@ -24,20 +24,28 @@ Game modes' balance buffs/nerfs viewer for [Pengu Loader](https://github.com/Pen
 
 ## 🔨 Installation
 
-👉 Goto [Release](https://github.com/nomi-san/balance-buff-viewer/releases) to download the plugin.
+<br>
+
+👉 Goto [Releases page](https://github.com/nomi-san/balance-buff-viewer/releases) to download the plugin.
 
 <br>
 
 ### Build from source
 
 - Clone this repo to your plugins folder.
-- NodeJS 16+ and pnpm are required to build.
+- NodeJS 18+ and pnpm are required to build.
 
 ```
 pnpm i
 pnpm crawl
 pnpm build
 ```
+
+### Contribute your translation
+
+1. Find your locale by using Pengu DevTools.
+2. Add your translation to [src/trans.json](src/trans.json).
+3. Open a new Pull Request 👌
 
 ### Remote plugin
 
@@ -58,3 +66,4 @@ In case of regional restrictions, you can use other ESM CDNs:
 - Icons: https://leagueoflegends.fandom.com/wiki
 - Balance data: https://leagueoflegends.fandom.com/wiki/Module:ChampionData/data
 - Original idea & zh-CN translation: [@BakaFT](https://github.com/BakaFT)
+- Thanks to ko-KR translation by [@hoon610](https://github.com/hoon610)
