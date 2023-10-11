@@ -10,7 +10,7 @@ Game modes' balance buffs/nerfs viewer for [Pengu Loader](https://github.com/Pen
 
 - [x] Friendly UI with tooltips
 - [x] Stat icons and highlighting
-- [x] Multilingual support (en/kr/vi/zh)
+- [x] Multilingual support (en/es-mx/ko/vi/zh)
 - [x] ARAM balance stats
 - [x] ARURF/URF balance stats
 
@@ -62,8 +62,9 @@ In case of regional restrictions, you can use other ESM CDNs:
 - unpkg
 
 ## 🍻 Credits
-- Pengu Loader: https://pengu.lol
-- Icons: https://leagueoflegends.fandom.com/wiki
-- Balance data: https://leagueoflegends.fandom.com/wiki/Module:ChampionData/data
-- Original idea & zh-CN translation: [@BakaFT](https://github.com/BakaFT)
-- Thanks to ko-KR translation by [@hoon610](https://github.com/hoon610)
+- Pengu Loader - https://pengu.lol
+- Used icons - https://leagueoflegends.fandom.com/wiki
+- Balance data - https://leagueoflegends.fandom.com/wiki/Module:ChampionData/data
+- Thanks to [@BakaFT](https://github.com/BakaFT) for the original idea and Chinese translation.
+- Thanks to [@hoon610](https://github.com/hoon610) for the Korean translation.
+- Thanks to [@FrannDzs](https://github.com/FrannDzs) for the Mexican translation.
