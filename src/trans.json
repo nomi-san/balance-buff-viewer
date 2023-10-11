@@ -71,6 +71,23 @@
       "attack_speed": "공격 속도",
       "movement_speed": "이동 속도",
       "tenacity": "강인함"
+    },
+    {
+      "_locales": [
+        "es-MX"
+      ],
+      "title": "ESTADÍSTICAS DE BALANCE",
+      "no_stats": "Aún no hay buff/nerf.",
+      "dmg_dealt": "Daño infligido",
+      "dmg_taken": "Daño recibido",
+      "healing": "Curación",
+      "shielding": "Escudo",
+      "ability_haste": "Reducción de enfriamiento",
+      "mana_regen": "Regeneración de maná",
+      "energy_regen": "Regeneración de energía",
+      "attack_speed": "Velocidad de ataque",
+      "movement_speed": "Velocidad de movimiento",
+      "tenacity": "Tenacidad"
     }    
   ]
 }
