@@ -12,12 +12,12 @@ Game modes' balance buffs/nerfs viewer for [Pengu Loader](https://github.com/Pen
 - [x] Stat icons and highlighting
 - [x] Multilingual support (en/es-mx/ko/vi/zh)
 - [x] ARAM balance stats
-- [x] ARURF/URF balance stats
+- [x] AR/URF balance stats
+- [x] Nexus Blitz balance stats
 
 ### 📝 Todo
 
 - [ ] One for All balance stats
-- [ ] Nexus Blitz balance stats
 - [ ] Ultra SpellBook balance stats
 
 <br>

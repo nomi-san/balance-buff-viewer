@@ -5,6 +5,7 @@ import BALANCE_DATA from '../dist/balance.json';
 
 // @ts-ignore
 const version = BALANCE_DATA['version'];
+const supportedModes = ['aram', 'nb', 'urf', 'arurf'];
 
 const delay = (t: number) => new Promise(r => setTimeout(r, t));
 const playerManager = () => document.getElementById('lol-uikit-layer-manager-wrapper')!;
@@ -14,8 +15,16 @@ let tooltip_: Tooltip = null!;
 let teamArray_ = Array<BalanceTooltipData>();
 let benchArray_ = Array<BalanceTooltipData>();
 
+function normalizeGameMode(mode: string) {
+  mode = mode.toLowerCase();
+  if (mode === 'nexusblitz') {
+    mode = 'nb';
+  }
+  return mode;
+}
+
 function isValidGameMode() {
-  return gameMode_ === 'aram' || gameMode_ === 'urf';
+  return supportedModes.includes(gameMode_);
 }
 
 function update(session: ChampSelectSession) {
@@ -65,7 +74,7 @@ async function mount() {
   const { map }: GameFlowSession = await fetch('/lol-gameflow/v1/session').then(r => r.json());
   const { benchEnabled }: ChampSelectSession = await fetch('/lol-champ-select/v1/session').then(r => r.json());
 
-  gameMode_ = map.gameMode.toLowerCase();
+  gameMode_ = normalizeGameMode(map.gameMode);
   if (!isValidGameMode()) return;
 
   tooltip_ = new Tooltip(playerManager());
