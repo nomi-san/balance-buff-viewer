@@ -1,0 +1,24 @@
+name: Balance buff viewer
+slug: balance-buff-viewer
+description: Game modes' balance buffs/nerfs viewer.
+image:
+  data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'
+  viewBox='0 0 24 24' stroke-width='2' stroke='%2300BD6F' fill='%2300BD6F' stroke-linecap='round'
+  stroke-linejoin='round'%3E%3Cpath stroke='none' d='M0 0h24v24H0z' fill='none'%3E%3C/path%3E%3Cpath
+  d='M3 8l4 -4l4 4'%3E%3C/path%3E%3Cpath d='M7 4l0 9'%3E%3C/path%3E%3Cpath d='M13
+  16l4 4l4 -4'%3E%3C/path%3E%3Cpath d='M17 10l0 10'%3E%3C/path%3E%3C/svg%3E
+
+repo: https://github.com/nomi-san/balance-buff-viewer
+discord: https://discord.com/channels/1069483280438673418/1127199847901052979
+
+author:
+  name: Nomi
+  github: nomi-san
+
+auto_update: true
+tags: [utility, ui]
+
+install:
+  - entry: balance-buff-viewer.js
+    content:
+      export * from 'https://cdn.skypack.dev/balance-buff-viewer-plugin?min';

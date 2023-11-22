@@ -26,7 +26,16 @@ Game modes' balance buffs/nerfs viewer for [Pengu Loader](https://github.com/Pen
 
 <br>
 
-👉 Goto [Releases page](https://github.com/nomi-san/balance-buff-viewer/releases) to download the plugin.
+For **Pengu Loader v1.1.2+**, click 👇 to install.
+
+<a href="https://pengu.lol/get/#nomi-san/balance-buff-viewer" target="_blank">
+  <img src ="https://img.shields.io/badge/pengu_install-balance_buff_viewer-607080.svg?&style=for-the-badge&logo=javascript&logoColor=white"/>
+</a>
+
+<br>
+<br>
+
+Or goto 👉 [Releases page](https://github.com/nomi-san/balance-buff-viewer/releases) to download the plugin manually.
 
 <br>
 
