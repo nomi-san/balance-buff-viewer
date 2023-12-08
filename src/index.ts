@@ -4,8 +4,8 @@ import { getStatsHtml } from './data';
 import BALANCE_DATA from '../dist/balance.json';
 
 // @ts-ignore
-const version = BALANCE_DATA['version'];
-const supportedModes = ['aram', 'nb', 'urf', 'arurf'];
+const VERSION = BALANCE_DATA['version'];
+const GAME_MODES = ['aram', 'ar', 'nb', 'urf', 'arurf'];
 
 const delay = (t: number) => new Promise(r => setTimeout(r, t));
 const playerManager = () => document.getElementById('lol-uikit-layer-manager-wrapper')!;
@@ -15,78 +15,80 @@ let tooltip_: Tooltip = null!;
 let teamArray_ = Array<BalanceTooltipData>();
 let benchArray_ = Array<BalanceTooltipData>();
 
-function normalizeGameMode(mode: string) {
+function isSupportedMode(mode: string) {
   mode = mode.toLowerCase();
   if (mode === 'nexusblitz') {
     mode = 'nb';
+  } else if (mode === 'cherry') {
+    mode = 'ar';
   }
-  return mode;
+  gameMode_ = mode;
+  return GAME_MODES.includes(mode);
 }
 
-function isValidGameMode() {
-  return supportedModes.includes(gameMode_);
+function setBalanceTooltip(array: Array<BalanceTooltipData>, index: number, champId: number) {
+  if (champId in BALANCE_DATA) {
+    array[index] = {
+      champId,
+      champName: BALANCE_DATA[champId].name,
+      title: _t('title') + ` v${VERSION}`,
+      description: getStatsHtml(BALANCE_DATA[champId].stats?.[gameMode_]),
+    };
+  }
 }
 
 function update(session: ChampSelectSession) {
-  if (!isValidGameMode())
+  if (!isSupportedMode(gameMode_))
     return;
 
   teamArray_ = [];
-  for (const { championId } of session.myTeam) {
-    if (championId) {
-      const stats = BALANCE_DATA[championId].stats[gameMode_];
-      if (stats) {
-        teamArray_.push({
-          champId: championId,
-          champName: BALANCE_DATA[championId].name,
-          title: _t('title') + ` v${version}`,
-          description: getStatsHtml(stats),
-        });
-        continue;
-      }
-      teamArray_.push(null!);
-    }
+  benchArray_ = [];
+
+  if (gameMode_ === 'ar') {
+    let myCellId = session.localPlayerCellId;
+    let myIndex = session.myTeam.findIndex(x => x.cellId === myCellId);
+    let mateIndex = myIndex + ((myIndex % 2 === 0) ? 1 : -1);
+
+    let me = session.myTeam[myIndex];
+    let mate = session.myTeam[mateIndex];
+
+    setBalanceTooltip(teamArray_, myIndex % 2, me.championPickIntent || me.championId);
+    setBalanceTooltip(teamArray_, mateIndex % 2, mate.championPickIntent || mate.championId);
+
+    return;
   }
 
-  if (session.benchEnabled) {
-    benchArray_ = [];
-    for (const { championId } of session.benchChampions) {
-      if (championId) {
-        const stats = BALANCE_DATA[championId].stats[gameMode_];
-        if (stats) {
-          benchArray_.push({
-            champId: championId,
-            champName: BALANCE_DATA[championId].name,
-            title: _t('title') + ` v${version}`,
-            description: getStatsHtml(stats),
-          });
-          continue;
-        }
-      }
-      benchArray_.push(null!);
+  for (let i = 0; i < session.myTeam.length; ++i) {
+    const player = session.myTeam[i];
+    const champId = player.championPickIntent || player.championId;
+    setBalanceTooltip(teamArray_, i, champId);
+  }
+
+  if (session.benchEnabled && Array.isArray(session.benchChampions)) {
+    for (let i = 0; i < session.benchChampions.length; ++i) {
+      const slot = session.benchChampions[i];
+      const champId = slot.championId;
+      setBalanceTooltip(benchArray_, i, champId);
     }
   }
 }
 
 async function mount() {
-  console.log('MOUNT');
-
   const { map }: GameFlowSession = await fetch('/lol-gameflow/v1/session').then(r => r.json());
+  if (!isSupportedMode(map.gameMode))
+    return;
+
   const { benchEnabled }: ChampSelectSession = await fetch('/lol-champ-select/v1/session').then(r => r.json());
 
-  gameMode_ = normalizeGameMode(map.gameMode);
-  if (!isValidGameMode()) return;
-
+  let party: HTMLElement;
   tooltip_ = new Tooltip(playerManager());
 
-  let party: HTMLElement;
   do {
     await delay(100);
     party = document.querySelector('.summoner-array.your-party')!;
   } while (!party);
 
   party.querySelectorAll('.summoner-container-wrapper').forEach((el, index) => {
-    console.log('MOUNTING', index);
     el.addEventListener('mouseout', () => tooltip_.hide());
     el.addEventListener('mouseover', () => {
       const data = teamArray_[index];
@@ -103,13 +105,9 @@ async function mount() {
       });
     });
   }
-
-  console.log('MOUNTED');
 }
 
 function unmount() {
-  console.log('UNMOUNT');
-
   gameMode_ = '';
   tooltip_?.hide();
   tooltip_ = null!;
@@ -131,7 +129,6 @@ async function load() {
   const EP_GAMEFLOW = 'OnJsonApiEvent/lol-gameflow/v1/gameflow-phase'.replace(/\//g, '_');
 
   ws.onopen = () => {
-    console.log('WS OPENED');
     ws.send(JSON.stringify([5, EP_SESSION]));
     ws.send(JSON.stringify([5, EP_GAMEFLOW]));
   };

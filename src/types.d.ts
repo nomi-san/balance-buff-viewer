@@ -17,6 +17,7 @@ interface GameFlowSession {
 
 interface ChampSelectSession {
   gameId: number;
+  localPlayerCellId: number
   benchEnabled: boolean;
   benchChampions: BenchChampion[];
   myTeam: Player[]

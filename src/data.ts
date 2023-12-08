@@ -1,6 +1,7 @@
 import { _t } from './i18n';
 import { getIconUrl } from './icons';
 
+// 1.1 => +10%; 0.95 => -5%
 function ratioToBonus(n: number) {
   let text = parseFloat(((n - 1.0) * 100).toFixed(3)) + '%';
   if (n >= 1.0) text = '+' + text;
@@ -8,16 +9,19 @@ function ratioToBonus(n: number) {
 }
 
 function isBuff(stat: string, value: number) {
+  // positive cooldown
   if (stat === 'ability_haste')
     return value >= 0;
-  else if (stat === 'dmg_taken')
+  // negative damage taken
+  if (stat === 'dmg_taken')
     return value < 1.0;
-  else
-    return value >= 1.0;
+  // otherwise all bonus
+  return value >= 1.0;
 }
 
 export function getStatsHtml(stats: BalanceStats) {
-  if (Object.keys(stats).length === 0) {
+  // no balance stats
+  if (typeof(stats) !== 'object' || Object.keys(stats).length === 0) {
     return _t('no_stats');
   }
 

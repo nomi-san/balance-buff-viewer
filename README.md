@@ -14,6 +14,7 @@ Game modes' balance buffs/nerfs viewer for [Pengu Loader](https://github.com/Pen
 - [x] ARAM balance stats
 - [x] AR/URF balance stats
 - [x] Nexus Blitz balance stats
+- [x] Arena (2v2v2v2) balance stats
 
 ### 📝 Todo
 

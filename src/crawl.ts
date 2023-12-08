@@ -4,9 +4,22 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import pkg from '../package.json';
 
-const GAME_MODES = ['aram', 'nb', 'ofa', 'urf', 'usb'];
 const FANDOM_DATA_URL = 'https://leagueoflegends.fandom.com/wiki/Module:ChampionData/data';
 const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36';
+
+const GAME_MODES = ['aram', 'ar', 'nb', 'ofa', 'urf', 'usb'];
+const STAT_PROPS = [
+  'dmg_dealt',
+  'dmg_taken',
+  'healing',
+  'shielding',
+  'ability_haste',
+  'mana_regen',
+  'energy_regen',
+  'attack_speed',
+  'movement_speed',
+  'tenacity',
+];
 
 async function getFandomDataScript() {
   const res = await fetch(FANDOM_DATA_URL, {
@@ -80,22 +93,28 @@ function buildBalanceBuffData(script: string) {
 
     for (const mode of GAME_MODES) {
       const fields = getField(stats.fields, mode)?.fields;
-      champ.stats[mode] = {
-        dmg_dealt: getFieldNumber(fields, 'dmg_dealt'),
-        dmg_taken: getFieldNumber(fields, 'dmg_taken'),
-        healing: getFieldNumber(fields, 'healing'),
-        shielding: getFieldNumber(fields, 'shielding'),
-        ability_haste: getFieldNumber(fields, 'ability_haste'),
-        mana_regen: getFieldNumber(fields, 'mana_regen'),
-        energy_regen: getFieldNumber(fields, 'energy_regen'),
-        attack_speed: getFieldNumber(fields, 'attack_speed'),
-        movement_speed: getFieldNumber(fields, 'movement_speed'),
-        tenacity: getFieldNumber(fields, 'tenacity'),
-      };
 
-      if (champ.stats[mode].dmg_dealt === 1.0) delete champ.stats[mode].dmg_dealt;
-      if (champ.stats[mode].dmg_taken === 1.0) delete champ.stats[mode].dmg_taken;
-      if (champ.stats[mode].tenacity === 1.0) delete champ.stats[mode].tenacity;
+      champ.stats[mode] = {};
+      for (const prop of STAT_PROPS) {
+        const value = getFieldNumber(fields, prop);
+        if (value != null) {
+          champ.stats[mode][prop] = value;
+        }
+      }
+
+      if (champ.stats[mode].dmg_dealt === 1.0) {
+        delete champ.stats[mode].dmg_dealt;
+      }
+      if (champ.stats[mode].dmg_taken === 1.0) {
+        delete champ.stats[mode].dmg_taken;
+      }
+      if (champ.stats[mode].tenacity === 1.0) {
+        delete champ.stats[mode].tenacity;
+      }
+
+      if (Object.keys(champ.stats[mode]).length === 0) {
+        delete champ.stats[mode];
+      }
     }
 
     data[champ.id] = champ;
