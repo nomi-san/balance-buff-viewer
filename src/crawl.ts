@@ -29,12 +29,15 @@ async function getFandomDataScript() {
   });
 
   const data = await res.text();
-  const start = '<pre class="mw-code mw-script" dir="ltr">', end = '</pre>';
+  const start = "<pre class='mw-code mw-script' dir='ltr'>", end = "</pre>";
   const startIdx = data.indexOf(start) + start.length;
   const endIdx = data.indexOf(end, startIdx);
 
   const script = data.substring(startIdx, endIdx);
-  return script;
+  return script
+    .replace(/\&quot\;/g, '"')
+    .replace(/\&lt\;/g, '<')
+    .replace(/\&gt\;/g, '>');
 }
 
 function capitalize(str: string) {
@@ -125,6 +128,7 @@ function buildBalanceBuffData(script: string) {
 
 async function main() {
   const script = await getFandomDataScript();
+  console.log(script)
   const data = buildBalanceBuffData(script);
 
   const version = pkg.version.split('.').slice(0, 2).join('.');
