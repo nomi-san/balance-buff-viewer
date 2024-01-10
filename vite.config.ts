@@ -13,7 +13,7 @@ const BANNER = `/**
 
 fs.writeFile(
   path.join(__dirname, 'balance-buff-viewer.js'),
-  `${BANNER}\n\nexport * from 'https://cdn.skypack.dev/${pkg.name}?min';`
+  `${BANNER}\n\n(() => import('https://cdn.skypack.dev/${pkg.name}?min'))();`
 );
 
 function imageIcons(): Plugin {
