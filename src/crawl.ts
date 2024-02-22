@@ -134,7 +134,7 @@ async function main() {
   const version = pkg.version.split('.').slice(0, 2).join('.');
   data['version'] = version;
 
-  const json = JSON.stringify(data);
+  const json = JSON.stringify(data, null, 2);
   const outdir = path.join(process.cwd(), 'dist');
   const outpath = path.join(outdir, 'balance.json');
 
