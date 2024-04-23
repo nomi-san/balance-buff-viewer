@@ -20,7 +20,7 @@
 - [x] Stat icons and highlighting
 - [x] Multilingual support (en/es-mx/ko/vi/zh)
 
-#### Supported game modes:
+### 🎮 Game modes
   - [x] ARAM
   - [x] AR/URF
   - [x] Nexus Blitz
