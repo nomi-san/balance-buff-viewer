@@ -2,9 +2,17 @@
   <img width="100%" src="https://github.com/nomi-san/balance-buff-viewer/assets/38210249/6120e251-d319-463e-9e83-1ec318ca10b3" alt="Preview image">
 </p>
 
-# Balance Buff Viewer
-
-Game modes' balance buffs/nerfs viewer for [Pengu Loader](https://github.com/PenguLoader/PenguLoader).
+<p align="cennter">
+  <h1 align="center">Balance Buff Viewer</h1>
+  <p align="center">
+    Game modes' balance buffs/nerfs viewer for 
+      <a href="https://github.com/PenguLoader/PenguLoader" target="_blank">Pengu Loader</a>
+  </p>
+  <p align="center">
+    <img src="https://img.shields.io/npm/v/balance-buff-viewer-plugin?style=for-the-badge" />
+    <img src="https://img.shields.io/npm/d18m/balance-buff-viewer-plugin?style=for-the-badge" />
+  </p>
+</p>
 
 ### ⚡ Features
 
@@ -12,7 +20,7 @@ Game modes' balance buffs/nerfs viewer for [Pengu Loader](https://github.com/Pen
 - [x] Stat icons and highlighting
 - [x] Multilingual support (en/es-mx/ko/vi/zh)
 
-#### Supported game modes:
+### 🎮 Game modes
   - [x] ARAM
   - [x] AR/URF
   - [x] Nexus Blitz
