@@ -13,6 +13,5 @@ auto_update: true
 tags: [utility, ui]
 
 install:
-  - entry: $(id).js
-    content:
-      (() => import('https://cdn.skypack.dev/balance-buff-viewer-plugin?min'))();
+  index: |
+    (() => import('https://cdn.skypack.dev/balance-buff-viewer-plugin?min'))();
