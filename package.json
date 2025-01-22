@@ -1,7 +1,8 @@
 {
   "name": "balance-buff-viewer-plugin",
-  "version": "14.24.0",
+  "version": "15.0.1",
   "description": "ARAM/URF balance buff viewer plugin for Pengu Loader.",
+  "game-patch": "25.S1.1",
   "author": "nomi-san",
   "repository": {
     "type": "git",

@@ -131,7 +131,7 @@ async function main() {
   console.log(script)
   const data = buildBalanceBuffData(script);
 
-  const version = pkg.version.split('.').slice(0, 2).join('.');
+  const version = pkg['game-patch'];
   data['version'] = version;
 
   const json = JSON.stringify(data, null, 2);
