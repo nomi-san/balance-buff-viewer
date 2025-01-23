@@ -1,8 +1,8 @@
 {
   "name": "balance-buff-viewer-plugin",
-  "version": "15.0.2",
+  "version": "15.0.3",
   "description": "ARAM/URF balance buff viewer plugin for Pengu Loader.",
-  "game-patch": "25.S1.1",
+  "game-patch": "25.S1.2",
   "author": "nomi-san",
   "repository": {
     "type": "git",
@@ -15,19 +15,20 @@
     "league-of-legends",
     "plugins"
   ],
+  "type": "module",
   "main": "dist/index.js",
   "files": [
     "dist"
   ],
   "scripts": {
-    "crawl": "sucrase-node src/crawl.ts",
+    "crawl": "tsx src/crawl.ts",
     "build": "tsc --noEmit && vite build"
   },
   "devDependencies": {
     "@types/luaparse": "^0.2.12",
     "@types/node": "^20",
     "luaparse": "^0.3.1",
-    "sucrase": "^3.35.0",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "vite": "^6.0.11"
   }
