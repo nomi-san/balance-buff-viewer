@@ -29,7 +29,7 @@ async function getFandomDataScript() {
   });
 
   const data = await res.text();
-  const start = "<pre class='mw-code mw-script' dir='ltr'>", end = "</pre>";
+  const start = `<pre lang="en" dir="ltr" class="mw-code mw-script">`, end = "</pre>";
   const startIdx = data.indexOf(start) + start.length;
   const endIdx = data.indexOf(end, startIdx);
 
