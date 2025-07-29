@@ -1,0 +1,38 @@
+name: Check for update
+
+on:
+  schedule:
+    # Runs at 16:00 (GMT+7) on Wed, Thu, Fri
+    # New LoL patch will be released on Wed and maybe delayed to next day
+    # Fandom data will be updated some hours later
+    - cron: "0 9 * * 3,4,5" # 09:00 UTC
+  workflow_dispatch:
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org/"
+
+      - name: Install pnpm & deps
+        run: |
+          npm i -g pnpm@9
+          pnpm i
+
+      - name: Run update script
+        run: pnpm run update
+
+      - name: Publish to npm
+        if: ${{ success() }}
+        run: |
+          pnpm build
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
