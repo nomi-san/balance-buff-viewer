@@ -2,7 +2,11 @@
   "name": "balance-buff-viewer-plugin",
   "version": "15.14.0",
   "description": "ARAM/URF balance buff viewer plugin for Pengu Loader.",
-  "game-patch": "25.14",
+  "data": {
+    "patch": "15.14.0",
+    "hash": "...",
+    "date": "2025-07-29T00:08:12.544Z"
+  },
   "author": "nomi-san",
   "repository": {
     "type": "git",
@@ -21,12 +25,14 @@
     "dist"
   ],
   "scripts": {
-    "crawl": "tsx src/crawl.ts",
+    "crawl": "tsx scripts/crawler.ts",
+    "update": "tsx scripts/updater.ts",
     "build": "tsc --noEmit && vite build"
   },
   "devDependencies": {
     "@types/luaparse": "^0.2.12",
     "@types/node": "^20",
+    "comment-json": "^4.2.5",
     "luaparse": "^0.3.1",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
