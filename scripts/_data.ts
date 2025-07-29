@@ -1,8 +1,4 @@
 import luaparse from 'luaparse';
-import { existsSync } from 'node:fs';
-import fs from 'node:fs/promises';
-import path from 'node:path';
-import pkg from '../package.json';
 
 const FANDOM_DATA_URL = 'https://leagueoflegends.fandom.com/wiki/Module:ChampionData/data';
 const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36';
@@ -35,6 +31,7 @@ async function getFandomDataScript() {
 
   const script = data.substring(startIdx, endIdx);
   return script
+    .replace(/\r\n/g, '\n')
     .replace(/\&quot\;/g, '"')
     .replace(/\&lt\;/g, '<')
     .replace(/\&gt\;/g, '>');
@@ -126,25 +123,7 @@ function buildBalanceBuffData(script: string) {
   return data;
 }
 
-async function main() {
-  const script = await getFandomDataScript();
-  console.log(script)
-  const data = buildBalanceBuffData(script);
-
-  const version = pkg['game-patch'];
-  data['version'] = version;
-
-  const json = JSON.stringify(data, null, 2);
-  const outdir = path.join(process.cwd(), 'dist');
-  const outpath = path.join(outdir, 'balance.json');
-
-  if (!existsSync(outdir)) {
-    await fs.mkdir(outdir);
-  }
-  await fs.writeFile(outpath, json);
+export {
+  getFandomDataScript,
+  buildBalanceBuffData,
 }
-
-main()
-  .then(() => console.log('Successfully parsed fandom data.'))
-  .catch((err) => (console.log('Failed to parse fandom data.', err), process.exit(1)))
-  ;
