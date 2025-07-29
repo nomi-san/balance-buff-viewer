@@ -3,7 +3,7 @@
   "version": "15.14.1",
   "description": "ARAM/URF balance buff viewer plugin for Pengu Loader.",
   "data": {
-    "patch": "15.14.0",
+    "patch": "15.14.2",
     "hash": "...",
     "date": "..."
   },
