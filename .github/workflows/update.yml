@@ -28,6 +28,7 @@ jobs:
 
       - name: Run update script
         run: pnpm run update
+        continue-on-error: false
 
       - name: Publish to npm
         if: ${{ success() }}
@@ -36,3 +37,16 @@ jobs:
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit and push changes
+        run: |
+          git add package.json
+          git commit -m "chore: automated update"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
