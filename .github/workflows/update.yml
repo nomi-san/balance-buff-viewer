@@ -30,11 +30,14 @@ jobs:
           pnpm i
 
       - name: Run update script
-        run: pnpm run update
-        continue-on-error: false
+        id: update_step
+        run: |
+          pnpm run update
+          echo "exit_code=$?" >> $GITHUB_OUTPUT
+        continue-on-error: true
 
       - name: Publish to npm
-        if: ${{ success() }}
+        if: steps.update_step.outputs.exit_code == '0'
         run: |
           pnpm build
           npm publish
@@ -42,11 +45,13 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
       - name: Configure git
+        if: steps.update_step.outputs.exit_code == '0'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Commit and push changes
+        if: steps.update_step.outputs.exit_code == '0'
         run: |
           git add package.json
           git commit -m "chore: automated update"
