@@ -4,7 +4,7 @@ import { getStatsHtml } from './data';
 import BALANCE_DATA from '../dist/balance.json';
 
 // @ts-ignore
-const VERSION = BALANCE_DATA['version'];
+const GAME_PATCH = BALANCE_DATA['_gamePatch'];
 const GAME_MODES = ['aram', 'ar', 'nb', 'urf', 'arurf'];
 
 const delay = (t: number) => new Promise(r => setTimeout(r, t));
@@ -31,7 +31,7 @@ function setBalanceTooltip(array: Array<BalanceTooltipData>, index: number, cham
     array[index] = {
       champId,
       champName: BALANCE_DATA[champId].name,
-      title: _t('title') + ` v${VERSION}`,
+      title: _t('title') + ` v${GAME_PATCH}`,
       description: getStatsHtml(BALANCE_DATA[champId].stats?.[gameMode_]),
     };
   }
