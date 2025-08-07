@@ -88,6 +88,23 @@
       "attack_speed": "Velocidad de ataque",
       "movement_speed": "Velocidad de movimiento",
       "tenacity": "Tenacidad"
-    }    
+    },
+    {
+      "_locales": [
+        "pt-BR"
+      ],
+      "title": "ESTATÍSTICAS DE BALANCEAMENTO",
+      "no_stats": "Sem buffs/nerfs ainda.",
+      "dmg_dealt": "Dano causado",
+      "dmg_taken": "Dano recebido",
+      "healing": "Cura",
+      "shielding": "Escudo",
+      "ability_haste": "Aceleração de habilidade",
+      "mana_regen": "Regeneração de mana",
+      "energy_regen": "Regeneração de energia",
+      "attack_speed": "Velocidade de ataque",
+      "movement_speed": "Velocidade de movimento",
+      "tenacity": "Tenacidade"
+    }
   ]
 }
