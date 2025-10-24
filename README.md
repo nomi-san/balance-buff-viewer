@@ -77,6 +77,12 @@ Since patch 25.15, the automated data source (LoL Fandom) may be outdated. You c
 - Testing your changes
 - Submitting updates via Pull Request
 
+❓ **[Check the FAQ](FAQ.md)** for common questions about:
+- Why the data might be outdated
+- How to contribute without programming skills
+- Where to find official balance values
+- Testing and validation
+
 We greatly appreciate community contributions to keep the balance data accurate! 🙏
 
 ### Remote plugin
