@@ -119,7 +119,18 @@ pnpm install
 ```bash
 # This may fail if Fandom is down, but might create a partial file
 pnpm crawl || true
+
+# If that doesn't work, create a minimal balance.json file:
+mkdir -p dist
+cat > dist/balance.json << 'EOF'
+{
+  "_patch": "15.15.1",
+  "_gamePatch": "25.15"
+}
+EOF
 ```
+
+**Important**: The `dist/balance.json` file is tracked in git (exception to the `dist/` ignore rule) because it's required for building the plugin and contains the data updates.
 
 3. **Manually edit the balance data**:
    - Open or create `dist/balance.json`
