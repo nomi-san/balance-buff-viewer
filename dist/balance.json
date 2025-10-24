@@ -1,0 +1,16 @@
+{
+  "_patch": "15.15.1",
+  "_gamePatch": "25.15",
+  "1": {
+    "id": 1,
+    "name": "Annie",
+    "title": "The Dark Child",
+    "stats": {}
+  },
+  "2": {
+    "id": 2,
+    "name": "Olaf",
+    "title": "The Berserker",
+    "stats": {}
+  }
+}

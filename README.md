@@ -28,6 +28,9 @@
   - [ ] One for All
   - [ ] Ultra SpellBook
 
+> **⚠️ Data Accuracy Notice**  
+> The automated balance data source (LoL Fandom) may be outdated since patch 25.15. If you notice inaccurate data, please consider [contributing updates](CONTRIBUTING.md#how-to-update-balance-data)! Community contributions are essential to keep the data current.
+
 <br>
 
 ## 🔨 Installation
@@ -63,6 +66,24 @@ pnpm build
 1. Find your locale by using Pengu DevTools.
 2. Add your translation to [src/trans.json](src/trans.json).
 3. Open a new Pull Request 👌
+
+### Contribute balance data updates
+
+Since patch 25.15, the automated data source (LoL Fandom) may be outdated. You can help by manually updating the balance data when new patches are released!
+
+📖 **[Read the Contributing Guide](CONTRIBUTING.md)** for detailed instructions on:
+- How to update balance data manually
+- Finding official patch notes and data sources
+- Testing your changes
+- Submitting updates via Pull Request
+
+❓ **[Check the FAQ](FAQ.md)** for common questions about:
+- Why the data might be outdated
+- How to contribute without programming skills
+- Where to find official balance values
+- Testing and validation
+
+We greatly appreciate community contributions to keep the balance data accurate! 🙏
 
 ### Remote plugin
 
