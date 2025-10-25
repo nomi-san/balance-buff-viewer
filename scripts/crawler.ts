@@ -1,17 +1,31 @@
 import path from 'node:path';
 import fs from 'node:fs/promises';
 import { existsSync } from 'node:fs';
-import { buildBalanceBuffData, getFandomDataScript } from './_data';
-import { toGamePatch } from './_utils';
+import { buildBalanceBuffData, getFandomDataScript, buildBalanceDataFromLoLWiki } from './_data';
+import { toGamePatch, compareSemver } from './_utils';
 import pkg from '../package.json';
 
-async function main() {
-  const script = await getFandomDataScript();
-  console.log(script)
+const LOLWIKI_START_PATCH = '25.15'; // Patch where we switch to LoL Wiki for ARAM data
 
-  const data = buildBalanceBuffData(script);
+async function main() {
+  const currentPatch = pkg.data.patch;
+  const gamePatch = toGamePatch(currentPatch);
+  
+  let data;
+  
+  // Use LoL Wiki if patch >= 25.15, otherwise use Fandom
+  if (compareSemver(currentPatch, LOLWIKI_START_PATCH) >= 0) {
+    console.log(`Patch ${gamePatch} (>= ${LOLWIKI_START_PATCH}): Using LoL Wiki for ARAM balance data`);
+    data = await buildBalanceDataFromLoLWiki(gamePatch);
+  } else {
+    console.log(`Patch ${gamePatch} (< ${LOLWIKI_START_PATCH}): Using Fandom for balance data`);
+    const script = await getFandomDataScript();
+    console.log(script);
+    data = buildBalanceBuffData(script);
+  }
+  
   data['_patch'] = pkg.data.patch;
-  data['_gamePatch'] = toGamePatch(pkg.data.patch);
+  data['_gamePatch'] = gamePatch;
 
   const json = JSON.stringify(data, null, 2);
   const outdir = path.join(process.cwd(), 'dist');
@@ -24,6 +38,6 @@ async function main() {
 }
 
 main()
-  .then(() => console.log('Successfully crawled Fandom data.'))
-  .catch((err) => (console.log('Failed to crawl Fandom data.', err), process.exit(1)))
+  .then(() => console.log('Successfully crawled balance data.'))
+  .catch((err) => (console.log('Failed to crawl balance data.', err), process.exit(1)))
   ;

@@ -3,14 +3,17 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import cjson from 'comment-json';
 import pkg from '../package.json';
-import { getFandomDataScript, buildBalanceBuffData } from './_data';
+import { getFandomDataScript, buildBalanceBuffData, buildBalanceDataFromLoLWiki } from './_data';
 import * as utils from './_utils';
+
+const LOLWIKI_START_PATCH = '25.15'; // Patch where we switch to LoL Wiki for ARAM data
 
 type UpdateInfo = {
   dataHash: string;
-  dataScript: string;
+  dataScript?: string;
   currentVersion: string;
   latestVersion: string;
+  useLoLWiki: boolean;
 };
 
 async function fetchUpdate(): Promise<UpdateInfo | false> {
@@ -22,18 +25,33 @@ async function fetchUpdate(): Promise<UpdateInfo | false> {
     return false;
   }
 
-  const dataScript = await getFandomDataScript();
-  const dataHash = utils.getSha1(dataScript);
-  if (dataHash === pkg.data.hash) {
-    console.log('No changes detected in the Fandom data script.');
-    return false;
+  const gamePatchVersion = utils.toGamePatch(latestVersion);
+  const useLoLWiki = utils.compareSemver(latestVersion, LOLWIKI_START_PATCH) >= 0;
+  
+  let dataHash: string;
+  let dataScript: string | undefined;
+  
+  if (useLoLWiki) {
+    console.log(`Patch ${gamePatchVersion} >= ${LOLWIKI_START_PATCH}: Using LoL Wiki for ARAM balance data`);
+    // For LoL Wiki, we use a fixed hash since we can't hash dynamic HTML
+    dataHash = `lolwiki-${latestVersion}`;
+  } else {
+    console.log(`Patch ${gamePatchVersion} < ${LOLWIKI_START_PATCH}: Using Fandom for balance data`);
+    dataScript = await getFandomDataScript();
+    dataHash = utils.getSha1(dataScript);
+    
+    if (dataHash === pkg.data.hash) {
+      console.log('No changes detected in the Fandom data script.');
+      return false;
+    }
   }
 
   return {
     dataHash,
     dataScript,
     currentVersion,
-    latestVersion
+    latestVersion,
+    useLoLWiki
   };
 }
 
@@ -54,9 +72,17 @@ async function updatePackageJson(update: UpdateInfo) {
 }
 
 async function updateBalanceJson(update: UpdateInfo) {
-  const data = buildBalanceBuffData(update.dataScript);
+  const gamePatch = utils.toGamePatch(update.latestVersion);
+  let data;
+  
+  if (update.useLoLWiki) {
+    data = await buildBalanceDataFromLoLWiki(gamePatch);
+  } else {
+    data = buildBalanceBuffData(update.dataScript!);
+  }
+  
   data['_patch'] = update.latestVersion;
-  data['_gamePatch'] = utils.toGamePatch(update.latestVersion);
+  data['_gamePatch'] = gamePatch;
 
   const json = JSON.stringify(data, null, 2);
   const outdir = join(process.cwd(), 'dist');

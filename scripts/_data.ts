@@ -1,7 +1,17 @@
 import luaparse from 'luaparse';
+import {
+  fetchLoLWikiPatchHistory,
+  extractPatchSections,
+  parseChampionBalanceFromSection,
+  createChampionMapping,
+  type BalanceData as LoLWikiBalanceData,
+} from './_lolwiki';
+import * as cheerio from 'cheerio';
+import { compareSemver } from './_utils';
 
 const FANDOM_DATA_URL = 'https://leagueoflegends.fandom.com/wiki/Module:ChampionData/data';
 const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36';
+const LOLWIKI_START_PATCH = '25.15'; // Patch where Fandom data became outdated
 
 const GAME_MODES = ['aram', 'ar', 'nb', 'ofa', 'urf', 'usb'];
 const STAT_PROPS = [
@@ -126,4 +136,62 @@ function buildBalanceBuffData(script: string) {
 export {
   getFandomDataScript,
   buildBalanceBuffData,
+  buildBalanceDataFromLoLWiki,
+}
+
+/**
+ * Builds balance data from LoL Wiki for ARAM mode
+ * This is used for patches >= 25.15 where Fandom data is outdated
+ */
+async function buildBalanceDataFromLoLWiki(currentPatch: string) {
+  console.log('Using LoL Wiki for ARAM balance data...');
+  
+  // Fetch and parse LoL Wiki
+  const html = await fetchLoLWikiPatchHistory();
+  const sections = extractPatchSections(html);
+  
+  if (sections.length === 0) {
+    throw new Error('No patch sections found in LoL Wiki');
+  }
+  
+  // Find the section for the current patch
+  const patchSection = sections.find(s => s.version === currentPatch);
+  
+  if (!patchSection) {
+    console.warn(`Patch ${currentPatch} not found in LoL Wiki, using latest patch: ${sections[0].version}`);
+    // Use the latest patch if current patch not found
+    const latestSection = sections[0];
+    return await parseLoLWikiSection(latestSection);
+  }
+  
+  return await parseLoLWikiSection(patchSection);
+}
+
+async function parseLoLWikiSection(section: { version: string; content: cheerio.Cheerio<any> }) {
+  const championMapping = await createChampionMapping();
+  const $ = cheerio.load('');
+  const balanceChanges = parseChampionBalanceFromSection(section.content, $);
+  
+  // Convert to the same format as buildBalanceBuffData
+  const data: any = {};
+  
+  for (const [championName, stats] of Array.from(balanceChanges)) {
+    const champInfo = championMapping.get(championName.toLowerCase());
+    
+    if (!champInfo) {
+      console.warn(`Unknown champion: ${championName}`);
+      continue;
+    }
+    
+    data[champInfo.id] = {
+      id: champInfo.id,
+      name: champInfo.apiname,
+      title: champInfo.title,
+      stats: {
+        aram: stats
+      }
+    };
+  }
+  
+  return data;
 }
