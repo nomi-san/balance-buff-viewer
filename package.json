@@ -26,12 +26,15 @@
   ],
   "scripts": {
     "crawl": "tsx scripts/crawler.ts",
+    "crawl:lolwiki": "tsx scripts/crawler-lolwiki.ts",
     "update": "tsx scripts/updater.ts",
+    "update:lolwiki": "tsx scripts/updater-lolwiki.ts",
     "build": "tsc --noEmit && vite build"
   },
   "devDependencies": {
     "@types/luaparse": "^0.2.12",
     "@types/node": "^20",
+    "cheerio": "^1.1.2",
     "comment-json": "^4.2.5",
     "luaparse": "^0.3.1",
     "tsx": "^4.19.2",
