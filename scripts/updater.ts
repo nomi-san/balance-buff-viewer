@@ -14,18 +14,25 @@ type UpdateInfo = {
 };
 
 async function fetchUpdate(): Promise<UpdateInfo | false> {
-  let currentVersion = pkg.data.patch;
-  let latestVersion = await utils.getLatestLoLPatch();
+  const currentVersion = pkg.data.patch;
+  const latestVersion = await utils.getLatestLoLPatch();
 
-  if (utils.compareSemver(latestVersion, currentVersion) <= 0) {
-    console.log(`Already on the latest patch: ${currentVersion}`);
+  let dataScript: string;
+  try {
+    dataScript = await fetchDataScript();
+  } catch (err) {
+    console.error('Failed to fetch data script:', err);
     return false;
   }
 
-  const dataScript = await fetchDataScript();
   const dataHash = utils.getSha1(dataScript);
   if (dataHash === pkg.data.hash) {
-    console.log('No changes detected in the Fandom data script.');
+    console.error('No changes detected in the Fandom data script.');
+    return false;
+  }
+  
+  if (utils.compareSemver(latestVersion, currentVersion) <= 0) {
+    console.error(`Already on the latest patch: ${currentVersion}`);
     return false;
   }
 
@@ -70,7 +77,7 @@ async function updateBalanceJson(update: UpdateInfo) {
   console.log('Updated balance data -> %s (%s)', update.latestVersion, update.dataHash);
 }
 
-async function main() {
+async function update() {
   let update = await fetchUpdate();
   if (!update) {
     console.log('No updates available.');
@@ -85,7 +92,7 @@ async function main() {
   await updatePackageJson(update);
 }
 
-main().catch(err => {
+update().catch(err => {
   console.error('Error during update:', err);
   process.exit(1);
 });
