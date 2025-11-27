@@ -1,7 +1,6 @@
 import luaparse from 'luaparse';
 
-const FANDOM_DATA_URL = 'https://leagueoflegends.fandom.com/wiki/Module:ChampionData/data';
-const USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36';
+const WIKI_DATA_URL = 'https://wiki.leagueoflegends.com/en-us/Module:ChampionData/data';
 
 const GAME_MODES = ['aram', 'ar', 'nb', 'ofa', 'urf', 'usb'];
 const STAT_PROPS = [
@@ -17,19 +16,20 @@ const STAT_PROPS = [
   'tenacity',
 ];
 
-async function getFandomDataScript() {
-  const res = await fetch(FANDOM_DATA_URL, {
+async function fetchDataScript() {
+  const res = await fetch(WIKI_DATA_URL, {
     headers: {
-      'user-agent': USER_AGENT
+      'Accept': '*/*',
+      'User-Agent': 'curl/8.13.0',
     }
   });
 
-  const data = await res.text();
-  const start = `<pre lang="en" dir="ltr" class="mw-code mw-script">`, end = "</pre>";
-  const startIdx = data.indexOf(start) + start.length;
-  const endIdx = data.indexOf(end, startIdx);
+  const html = await res.text();
+  const start = `-- &lt;pre>`, end = `-- &lt;/pre>`;
+  const startIdx = html.indexOf(start) + start.length;
+  const endIdx = html.indexOf(end, startIdx);
 
-  const script = data.substring(startIdx, endIdx);
+  const script = html.substring(startIdx, endIdx);
   return script
     .replace(/\r\n/g, '\n')
     .replace(/\&quot\;/g, '"')
@@ -47,7 +47,7 @@ function unquoteString(str: string) {
   return str.substring(1, str.length - 1);
 }
 
-function getField(fields, key: string): any {
+function getField(fields: any[], key: string): any {
   if (Array.isArray(fields)) {
     key = `"${key}"`;
     for (const { key: k, value } of fields) {
@@ -57,7 +57,7 @@ function getField(fields, key: string): any {
   }
 }
 
-function getFieldNumber(fields, key: string): any {
+function getFieldNumber(fields: any[], key: string): any {
   var field = getField(fields, key);
   if (field) {
     if (typeof field.value === 'number')
@@ -68,7 +68,7 @@ function getFieldNumber(fields, key: string): any {
   }
 }
 
-function getFieldString(fields, key: string): any {
+function getFieldString(fields: any[], key: string): any {
   var field = getField(fields, key);
   if (field) {
     return unquoteString(field.raw);
@@ -76,7 +76,7 @@ function getFieldString(fields, key: string): any {
 }
 
 function buildBalanceBuffData(script: string) {
-  const data = {};
+  const data: Record<string, any> = {};
   const ast: any = luaparse.parse(script);
   const table = ast.body[0].arguments[0];
 
@@ -88,7 +88,7 @@ function buildBalanceBuffData(script: string) {
       id: getFieldNumber(fields, 'id') as number,
       name: getFieldString(fields, 'apiname'),
       title: capitalize(getFieldString(fields, 'title')),
-      stats: {}
+      stats: {} as Record<string, any>,
     };
 
     for (const mode of GAME_MODES) {
@@ -124,6 +124,6 @@ function buildBalanceBuffData(script: string) {
 }
 
 export {
-  getFandomDataScript,
+  fetchDataScript,
   buildBalanceBuffData,
 }

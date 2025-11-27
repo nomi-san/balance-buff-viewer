@@ -82,6 +82,7 @@ In case of regional restrictions, you can use other ESM CDNs:
 - Pengu Loader - https://pengu.lol
 - Used icons - https://leagueoflegends.fandom.com/wiki
 - Balance data - https://leagueoflegends.fandom.com/wiki/Module:ChampionData/data
+- Balance data (after patch 25.15) - https://wiki.leagueoflegends.com/en-us/Module:ChampionData/data
 - Thanks to [@BakaFT](https://github.com/BakaFT) for the original idea and Chinese translation.
 - Thanks to [@hoon610](https://github.com/hoon610) for the Korean translation.
 - Thanks to [@FrannDzs](https://github.com/FrannDzs) for the Mexican translation.

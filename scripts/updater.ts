@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import cjson from 'comment-json';
 import pkg from '../package.json';
-import { getFandomDataScript, buildBalanceBuffData } from './_data';
+import { fetchDataScript, buildBalanceBuffData } from './_data';
 import * as utils from './_utils';
 
 type UpdateInfo = {
@@ -22,7 +22,7 @@ async function fetchUpdate(): Promise<UpdateInfo | false> {
     return false;
   }
 
-  const dataScript = await getFandomDataScript();
+  const dataScript = await fetchDataScript();
   const dataHash = utils.getSha1(dataScript);
   if (dataHash === pkg.data.hash) {
     console.log('No changes detected in the Fandom data script.');

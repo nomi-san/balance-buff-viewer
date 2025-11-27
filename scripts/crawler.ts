@@ -1,13 +1,13 @@
 import path from 'node:path';
 import fs from 'node:fs/promises';
 import { existsSync } from 'node:fs';
-import { buildBalanceBuffData, getFandomDataScript } from './_data';
+import { fetchDataScript, buildBalanceBuffData } from './_data';
 import { toGamePatch } from './_utils';
 import pkg from '../package.json';
 
 async function main() {
-  const script = await getFandomDataScript();
-  console.log(script)
+  const script = await fetchDataScript();
+  console.log(script);
 
   const data = buildBalanceBuffData(script);
   data['_patch'] = pkg.data.patch;
