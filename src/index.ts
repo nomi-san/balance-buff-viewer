@@ -5,7 +5,7 @@ import BALANCE_DATA from '../dist/balance.json';
 
 // @ts-ignore
 const GAME_PATCH = BALANCE_DATA['_gamePatch'];
-const GAME_MODES = ['aram', 'ar', 'nb', 'urf', 'arurf'];
+const GAME_MODES = ['aram', 'ar', 'nb', 'urf', 'arurf', 'kiwi'];
 
 const delay = (t: number) => new Promise(r => setTimeout(r, t));
 const playerManager = () => document.getElementById('lol-uikit-layer-manager-wrapper')!;

@@ -1,10 +1,11 @@
 
+type GameMode = 'aram' | 'cherry' | 'nexusblitz' | 'urf' | 'arurf' | 'kiwi'
 type GameFlowPhase = 'Lobby' | 'ChampSelect' | 'None'
 
 interface GameFlowSession {
   map: {
     id: number
-    gameMode: string
+    gameMode: GameMode
     gameModeName: string
     gameModeShortName: string
   }
