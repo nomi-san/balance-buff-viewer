@@ -21,6 +21,8 @@ function isSupportedMode(mode: string) {
     mode = 'nb';
   } else if (mode === 'cherry') {
     mode = 'ar';
+  } else if (mode === 'kiwi') {
+    mode = 'aram';
   }
   gameMode_ = mode;
   return GAME_MODES.includes(mode);

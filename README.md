@@ -22,7 +22,7 @@
 
 ### 🎮 Game modes support
   - [x] ARAM
-  - [ ] ARAM: Mayhem
+  - [x] ARAM: Mayhem
   - [x] AR/URF
   - [x] Nexus Blitz
   - [x] Arena (2v2v2v2)
@@ -80,7 +80,7 @@ This plugins is also a npm package ([balance-buff-viewer-plugin](https://www.npm
 The plugin entry will import its source via Skypack CDN with @latest version, so it will be automatically updated when we publish a newer version.
 
 ```js
-(() => import('https://cdn.skypack.dev/balance-buff-viewer-plugin@latest?min'))();
+(() => import('https://cdn.skypack.dev/balance-buff-viewer-plugin@latest'))();
 ```
 
 In case of regional restrictions, you can use other ESM CDNs:
