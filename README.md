@@ -20,8 +20,9 @@
 - [x] Stat icons and highlighting
 - [x] Multilingual support (en/es-mx/ko/vi/zh)
 
-### 🎮 Game modes
+### 🎮 Game modes support
   - [x] ARAM
+  - [ ] ARAM: Mayhem
   - [x] AR/URF
   - [x] Nexus Blitz
   - [x] Arena (2v2v2v2)
@@ -30,9 +31,9 @@
 
 <br>
 
-## 🔨 Installation
+## 📦 Installation
 
-<br>
+<!-- <br>
 
 For **Pengu Loader v1.1.2+**, click 👇 to install.
 
@@ -41,11 +42,20 @@ For **Pengu Loader v1.1.2+**, click 👇 to install.
 </a>
 
 <br>
+<br> -->
+
+1. Download [balance-buff-viewer.js](https://github.com/nomi-san/balance-buff-viewer/releases/download/main/balance-buff-viewer.js) from the [Releases page](https://github.com/nomi-san/balance-buff-viewer/releases)
+2. Put it in the **plugins** folder
+
+```
+Pengu Loader/
+  |__ plugins/
+    |__ balance-buff-viewer.js          ✅
+```
+
 <br>
 
-Or goto 👉 [Releases page](https://github.com/nomi-san/balance-buff-viewer/releases) to download the plugin manually.
-
-<br>
+## 🚀 Development
 
 ### Build from source
 
@@ -70,7 +80,7 @@ This plugins is also a npm package ([balance-buff-viewer-plugin](https://www.npm
 The plugin entry will import its source via Skypack CDN with @latest version, so it will be automatically updated when we publish a newer version.
 
 ```js
-import 'https://cdn.skypack.dev/balance-buff-viewer-plugin?min';
+(() => import('https://cdn.skypack.dev/balance-buff-viewer-plugin@latest?min'))();
 ```
 
 In case of regional restrictions, you can use other ESM CDNs:
