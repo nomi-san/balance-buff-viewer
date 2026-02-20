@@ -70,23 +70,24 @@ pnpm build
 
 ### Contribute your translation
 
-1. Find your locale by using Pengu DevTools.
-2. Add your translation to [src/trans.json](src/trans.json).
+1. Find your locale by using Pengu DevTools -> inspect `<html>` tag
+2. Add the translation to [src/trans.json](src/trans.json).
 3. Open a new Pull Request 👌
 
-### Remote plugin
+### Npm package & Remote plugin
 
-This plugins is also a npm package ([balance-buff-viewer-plugin](https://www.npmjs.com/package/balance-buff-viewer-plugin)).
+This plugin is already published to npm registry, check out: ([balance-buff-viewer-plugin](https://www.npmjs.com/package/balance-buff-viewer-plugin)).
+
 The plugin entry will import its source via esm.sh CDN with @latest version, so it will be automatically updated when we publish a newer version.
 
 ```js
 (() => import('https://esm.sh/balance-buff-viewer-plugin@latest'))();
 ```
 
-In case of regional restrictions, you can use other ESM CDNs:
-- esm.run
-- unpkg.com
-- skypack.dev
+In case of regional restrictions, you can use other CDNs:
+- jsDelivr: `https://cdn.jsdelivr.net/npm/balance-buff-viewer-plugin@latest`
+- UNPKG: `https://unpkg.com/balance-buff-viewer-plugin@latest`
+- Skypack: `deprecated`
 
 ## 🍻 Credits
 - Pengu Loader - https://pengu.lol
@@ -96,3 +97,4 @@ In case of regional restrictions, you can use other ESM CDNs:
 - Thanks to [@BakaFT](https://github.com/BakaFT) for the original idea and Chinese translation.
 - Thanks to [@hoon610](https://github.com/hoon610) for the Korean translation.
 - Thanks to [@FrannDzs](https://github.com/FrannDzs) for the Mexican translation.
+- Thanks to [@Triggered0](https://github.com/Triggered0) for the Turkish translation.
