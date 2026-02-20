@@ -105,6 +105,23 @@
       "attack_speed": "Velocidade de ataque",
       "movement_speed": "Velocidade de movimento",
       "tenacity": "Tenacidade"
+    },
+    {
+      "_locales": [
+        "tr-TR"
+      ],
+      "title": "DENGELEME İSTATİSTİKLERİ",
+      "no_stats": "Henüz bir güçlendirme/zayıflatma yok.",
+      "dmg_dealt": "Verilen hasar",
+      "dmg_taken": "Alınan hasar",
+      "healing": "İyileştirme",
+      "shielding": "Kalkan",
+      "ability_haste": "Yetenek hızı",
+      "mana_regen": "Mana yenilenmesi",
+      "energy_regen": "Enerji yenilenmesi",
+      "attack_speed": "Saldırı hızı",
+      "movement_speed": "Hareket hızı",
+      "tenacity": "Sıvışma"
     }
   ]
 }
