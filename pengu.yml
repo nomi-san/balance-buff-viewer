@@ -14,4 +14,4 @@ tags: [utility, ui]
 
 install:
   index: |
-    (() => import('https://cdn.skypack.dev/balance-buff-viewer-plugin?min'))();
+    (() => import('https://esm.sh/balance-buff-viewer-plugin@latest'))();
