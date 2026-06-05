@@ -16,9 +16,16 @@ import styles from './tooltip.css?inline';
   </div>
 */
 
-class UnmmountNotifier extends EventTarget {
-  notify() {
-    this.dispatchEvent(new Event('unmount'));
+class TrackerElement extends HTMLElement {
+  private _disconnect?: () => void;
+
+  connectedCallback() {
+  }
+
+  disconnectedCallback() {
+    if (this._disconnect) {
+      this._disconnect();
+    }
   }
 }
 
@@ -29,7 +36,7 @@ class Tooltip {
   _captionEl: HTMLDivElement;
   _descriptionEl: HTMLDivElement;
 
-  constructor(manager: HTMLElement, tracker: HTMLElement) {
+  constructor(manager: HTMLElement, trackTarget?: HTMLElement) {
 
     if (!Tooltip.$rootEl) {
       // Create root element on first tooltip initialization
@@ -43,6 +50,9 @@ class Tooltip {
 
       // Append root to the layers manager
       manager.appendChild(root);
+
+      // Register tracker element
+      customElements.define("bbv-tracker", TrackerElement);
     }
 
     // Create tooltip element
@@ -73,6 +83,13 @@ class Tooltip {
     const description = this._descriptionEl = document.createElement('div');
     description.classList.add('description');
     body.appendChild(description);
+
+    if (trackTarget) {
+      const tracker = document.createElement('bbv-tracker');
+      // @ts-ignore
+      tracker._disconnect = () => this.remove();
+      trackTarget.appendChild(tracker);
+    }
   }
 
   show(parent: Element, position: 'right' | 'bottom', caption: string, description: string) {

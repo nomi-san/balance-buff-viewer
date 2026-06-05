@@ -83,12 +83,13 @@ async function mount() {
   const { benchEnabled }: ChampSelectSession = await fetch('/lol-champ-select/v1/session').then(r => r.json());
 
   let party: HTMLElement;
-  tooltip_ = new Tooltip(playerManager());
 
   do {
     await delay(100);
     party = document.querySelector('.summoner-array.your-party')!;
   } while (!party);
+
+  tooltip_ = new Tooltip(playerManager(), party);
 
   party.querySelectorAll('.summoner-container-wrapper').forEach((el, index) => {
     el.addEventListener('mouseout', () => tooltip_.hide());
@@ -111,7 +112,7 @@ async function mount() {
 
 function unmount() {
   gameMode_ = '';
-  tooltip_?.hide();
+  tooltip_?.remove();
   tooltip_ = null!;
   teamArray_ = [];
   benchArray_ = [];
