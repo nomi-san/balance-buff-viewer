@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 
 type GameMode = 'aram' | 'cherry' | 'nexusblitz' | 'urf' | 'arurf' | 'kiwi'
 type GameFlowPhase = 'Lobby' | 'ChampSelect' | 'None'
@@ -38,7 +39,7 @@ interface Player {
   selectedSkinId: number
   spell1Id: number
   spell2Id: number
-  summonerId: BigInt
+  summonerId: number | string
   team: number
   wardSkinId: number
 }

@@ -1,70 +1,109 @@
-export class Tooltip {
+import styles from './tooltip.css?inline';
 
-  #manager: HTMLElement;
+/* 
+  <div class=".bbv-tooltip">
+    <div class=".bbv-tooltip-content">
+      <div class=".bbv-tooltip-decoration"></div>  
+      <div class=".bbv-tooltip-body">
+        <div class=".bbv-tooltip-caption">
+          BALANCE BUFFS
+        </div>
+        <div class=".bbv-tooltip-description">
+          Some description here
+        </div>
+      </div>
+    </div>
+  </div>
+*/
 
-  #root: HTMLElement;
-  #container: HTMLElement;
-  #tooltip: HTMLElement;
-  #caption: HTMLElement;
-  #content: HTMLElement;
+class UnmmountNotifier extends EventTarget {
+  notify() {
+    this.dispatchEvent(new Event('unmount'));
+  }
+}
 
-  constructor(manager: HTMLElement) {
-    this.#manager = manager;
+class Tooltip {
 
-    const root = this.#root = document.createElement('div');
-    root.setAttribute('style', 'position: absolute; top: 0; left: 0; width: 0; height: 0; overflow: visible; z-index: 19001;');
+  static $rootEl?: HTMLDivElement;
+  _tooltipEl: HTMLDivElement;
+  _captionEl: HTMLDivElement;
+  _descriptionEl: HTMLDivElement;
 
-    const container = this.#container = document.createElement('div');
-    container.setAttribute('style', 'position: absolute; opacity: 0;');
-    root.appendChild(container);
+  constructor(manager: HTMLElement, tracker: HTMLElement) {
 
-    const tooltip = this.#tooltip = document.createElement('lol-uikit-tooltip');
-    tooltip.setAttribute('data-tooltip-position', 'right');
-    container.appendChild(tooltip);
+    if (!Tooltip.$rootEl) {
+      // Create root element on first tooltip initialization
+      const root = Tooltip.$rootEl = document.createElement('div');
+      root.classList.add('bbv_root');
 
-    const view = document.createElement('div');
-    view.setAttribute('style', 'background: #1a1c21; direction: ltr; width: 300px; font-family: var(--font-body); -webkit-font-smoothing: subpixel-antialiased; color: #a09b8c; font-size: 12px; font-weight: 400; letter-spacing: .025em; line-height: 16px;');
-    tooltip.appendChild(view);
+      // Inject tooltip styles
+      const style = document.createElement('style');
+      style.textContent = styles;
+      root.appendChild(style);
 
+      // Append root to the layers manager
+      manager.appendChild(root);
+    }
+
+    // Create tooltip element
+    const tooltip = this._tooltipEl = document.createElement('div');
+    tooltip.classList.add('bbv_tooltip', 'hidden');
+    tooltip.setAttribute('data-position', 'right');
+    Tooltip.$rootEl.appendChild(tooltip);
+
+    // Create content wrapper
+    const content = document.createElement('div');
+    content.classList.add('content');
+    tooltip.appendChild(content);
+
+    // Create decorative arrow element
+    const decorator = document.createElement('div');
+    decorator.classList.add('decorator');
+    content.appendChild(decorator);
+
+    // Create body, caption and description elements
     const body = document.createElement('div');
-    body.setAttribute('style', 'min-width: 230px; padding: 18px;');
-    view.appendChild(body);
+    body.classList.add('body');
+    content.appendChild(body);
 
-    const caption = this.#caption = document.createElement('div');
-    caption.setAttribute('style', 'margin-bottom: 8px; color: #f0e6d2; font-size: 14px; font-weight: 700; letter-spacing: .075em; line-height: 18px; text-transform: uppercase;');
+    const caption = this._captionEl = document.createElement('div');
+    caption.classList.add('caption');
     body.appendChild(caption);
 
-    const content = this.#content = document.createElement('div');
-    content.setAttribute('style', 'white-space: pre;');
-    body.appendChild(content);
+    const description = this._descriptionEl = document.createElement('div');
+    description.classList.add('description');
+    body.appendChild(description);
   }
 
-  show(parent: Element, position: 'right' | 'bottom', caption: string, content: string) {
-    this.#caption.textContent = caption;
-    this.#content.innerHTML = content;
-    this.#manager.appendChild(this.#root);
-    this.#tooltip.setAttribute('data-tooltip-position', position);
+  show(parent: Element, position: 'right' | 'bottom', caption: string, description: string) {
+    this._tooltipEl.setAttribute('data-position', position);
+    this._captionEl.textContent = caption;
+    this._descriptionEl.innerHTML = description;
 
-    let left, top;
+    let left: number, top: number;
+    const tooltip = this._tooltipEl;
     const rect = parent.getBoundingClientRect();
 
     if (position === 'right') {
       left = rect.right + 5;
-      top = rect.bottom - (rect.height + this.#container.offsetHeight) / 2;
+      top = rect.bottom - (rect.height + tooltip.offsetHeight) / 2;
     } else {
       top = rect.bottom + 40;
-      left = rect.right - (rect.width + this.#container.offsetWidth) / 2;
+      left = rect.right - (rect.width + tooltip.offsetWidth) / 2;
     }
 
-    this.#container.style.left = `${left}px`;
-    this.#container.style.top = `${top}px`;
-    this.#container.style.opacity = '1';
+    tooltip.style.left = `${left}px`;
+    tooltip.style.top = `${top}px`;
+    tooltip.classList.remove('hidden');
   }
 
   hide() {
-    this.#caption.textContent = '';
-    this.#content.textContent = '';
-    this.#container.style.opacity = '0';
-    this.#root.remove();
+    this._tooltipEl.classList.add('hidden');
+  }
+
+  remove() {
+    this._tooltipEl.remove();
   }
 }
+
+export { Tooltip };
