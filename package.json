@@ -1,11 +1,11 @@
 {
   "name": "balance-buff-viewer-plugin",
-  "version": "16.11.9",
+  "version": "16.11.10",
   "description": "ARAM/URF balance buff viewer plugin for Pengu Loader.",
   "data": {
-    "patch": "16.19.1",
-    "hash": "51c000201503e7b3aa03ca922b3883f4908606c1",
-    "date": "2026-09-24T14:05:55.545Z"
+    "patch": "16.20.1",
+    "hash": "7006b4c9a176c8660f8ab5f0dd886bf16867bae0",
+    "date": "2026-10-07T16:10:36.977Z"
   },
   "author": "nomi-san",
   "repository": {
